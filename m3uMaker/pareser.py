@@ -2,6 +2,7 @@ import requests
 import random
 from time import sleep
 from m3u_parser import M3uParser
+from security import safe_requests
 
 
 def sleep_random():
@@ -15,7 +16,7 @@ def check_url_ok(url):
     useragent = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36"
     print("正在检查URL %s" % url)
     try:
-        result = requests.get(url, headers={"User-Agent": useragent}, timeout=10)
+        result = safe_requests.get(url, headers={"User-Agent": useragent}, timeout=10)
         return result.status_code == 200
     except requests.exceptions.ConnectionError as e:
         print("URL %s 访问超时" % url)

@@ -1,11 +1,11 @@
-import requests
+from security import safe_requests
 
 TEXT_URL_INDEX = "https://raw.fastgit.org/biancangming/wtv/master/txt/index.txt"
 
 
 def getRaw(url):
     try:
-        return requests.get(url).text.split("\n")
+        return safe_requests.get(url).text.split("\n")
     except Exception as e:
         return []
 

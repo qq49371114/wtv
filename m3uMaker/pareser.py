@@ -1,12 +1,12 @@
 import requests
-import random
 from time import sleep
 from m3u_parser import M3uParser
+import secrets
 
 
 def sleep_random():
     """随机等待5-10秒防止IP被封"""
-    sleep_s = random.randint(1, 10)
+    sleep_s = secrets.SystemRandom().randint(1, 10)
     sleep(sleep_s)
 
 

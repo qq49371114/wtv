@@ -13,7 +13,7 @@ USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, li
 
 
 def get_data_urls(cursor):
-    cursor.execute(f"select id, url from tvs")
+    cursor.execute("select id, url from tvs")
     urls = cursor.fetchall()
     return urls
 
@@ -45,9 +45,9 @@ class Data:
                 continue
 
             try:
-                insert_url_sql = f"insert into tvs (name,url) values ('{name}','{url}')"
+                insert_url_sql = "insert into tvs (name,url) values (?,?)"
                 print("插入数据:", insert_url_sql)
-                self.cursor.execute(insert_url_sql)
+                self.cursor.execute(insert_url_sql, (name, url, ))
             except Exception as e:
                 print("Exception:", e)
                 continue
@@ -75,7 +75,6 @@ class Data:
 
     async def check_url(self):
         timeout = aiohttp.ClientTimeout(10)
-        headers = {'User-Agent': USER_AGENT}
         # 获取ssl证书的位置
         ssl_context = ssl.create_default_context()
         ssl_context.load_verify_locations(certifi.where())
